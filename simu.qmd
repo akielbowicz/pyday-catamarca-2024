@@ -1,0 +1,49 @@
+---
+title: Simulación
+format: html
+---
+
+```{python}
+from simu import *
+````
+
+```{python}
+    grilla_x = 64
+    grilla_y = 128
+
+    # [dx,dy,dt]
+    dx, dy, dt = 1/2, 1/2, 0.1
+    delta = array([dx, dy, dt]) 
+    delta2 = (dx**2, dy**2)
+
+    posicion_interfaz = grilla_x // 2
+
+    grilla = (grilla_x, grilla_y)
+
+    concentracion_inicial = 1.0
+
+    coef_difusion = array([0.1, 0.1, 0.1])
+    k_cinetico = 0.5
+
+    r0 = 1
+    R = array([r0, 8, 1, 1]) 
+
+    coef = 0.5*(((dx**2)*(dy**2)/(dx**2+dy**2)))
+
+    concentracion = iniciar_concentracion(grilla, posicion_interfaz, concentracion_inicial)
+    psi = ones(grilla)
+    ax=None
+    # fig, ax = plt.subplots(3,3)
+    fig2, d = plt.subplots(1)
+
+    pasos = 500
+    for t in range(pasos):
+        if t % 10 == 0:
+            # fig.suptitle(f"Paso: {t}", fontsize=16)
+            fig2.suptitle(f"Paso: {t}", fontsize=16)
+            plot_densidad(d, concentracion, R)
+            display(fig2)
+            # display(fig)
+        concentracion, psi = avanzar(concentracion, psi, delta,delta2, R, coef, coef_difusion, k_cinetico, ax)
+        # plt.show()
+```
