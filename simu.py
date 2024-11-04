@@ -79,8 +79,8 @@ def calcular_fila(i, col, concentracion, alpha, beta, lambda_, k_cinetico, n):
     coef_ = construir_coef_(alpha_y[i], beta_y[:, col], lambda_) 
     termino_reactivo = signo(i) * k_cinetico * squeeze(concentracion[1:-1, col, 0] * 
     concentracion[1:-1, col, 1]) 
-    condicion_extremos[0]  = (alpha_x[i]+beta_x[1,col])*concentracion[1,col,i]
-    condicion_extremos[-1] = (alpha_x[i]-beta_x[1,col])*concentracion[-1,col,i]
+    condicion_extremos[0]  = (alpha_x[i]+beta_x[1,col])*concentracion[0,col,i]
+    condicion_extremos[-1] = (alpha_x[i]-beta_x[-2,col])*concentracion[-1,col,i]
     # print(f"coef:{shape(coef_)}, valor_c:{shape(valor_c)}, cext:{shape(condicion_extremos)}, treac:{shape(termino_reactivo)}")
     b = sum(coef_ * valor_c, axis=1) + condicion_extremos + termino_reactivo
     # print(f"CY A:{shape(A)}, b: {shape(b)}")
@@ -108,8 +108,8 @@ def calcular_columna(i, fila, concentracion, alpha, beta, lambda_, k_cinetico, n
     coef_ = construir_coef_(alpha_x[i], beta_x[fila,:], lambda_) # (ny-2, 3)
     termino_reactivo = signo(i) * k_cinetico * squeeze(concentracion[fila, 1:-1, 0] * 
     concentracion[fila, 1:-1, 1]) 
-    condicion_extremos[0] = (alpha_y[i]+beta_y[fila,1])*concentracion[fila,1,i]
-    condicion_extremos[-1] =(alpha_y[i]-beta_y[fila,1])*concentracion[fila,-1,i]
+    condicion_extremos[0] = (alpha_y[i]+beta_y[fila,1])*concentracion[fila,0,i]
+    condicion_extremos[-1] =(alpha_y[i]-beta_y[fila,-2])*concentracion[fila,-1,i]
     # print(f"coef:{shape(coef_)}, valor_c:{shape(valor_c)}, cext:{shape(condicion_extremos)}, treac:{shape(termino_reactivo)}")
     b = sum(coef_ * valor_c, axis=1) + condicion_extremos + termino_reactivo
     # print(f"CX A:{shape(A)}, b:{shape(b)}")
@@ -150,14 +150,14 @@ def calcular_concentracion(concentracion, v, delta, coef_difusion, k_cinetico):
     c = calcular_concentracion_y(c_intermedio, alpha, beta, lambda_, k_cinetico)
     # c = c_intermedio
     # print(f"c: {cuantiles(c)}")
-    return c
+    return c, c_intermedio
 
 def avanzar(concentracion, psi, delta, delta2, R, coef, coef_difusion, k_cinetico, ax=None):
     rho = calcular_rho(concentracion, R)
     psi_ = calcular_psi(psi, rho, delta, delta2, coef)
     v = calcular_velocidad(psi_, delta)
 
-    concentracion_ = calcular_concentracion(concentracion, v, delta, coef_difusion, k_cinetico)
+    concentracion_, c_int = calcular_concentracion(concentracion, v, delta, coef_difusion, k_cinetico)
 
     if ax is not None:
         ax[2,0].imshow(rho)
@@ -166,7 +166,7 @@ def avanzar(concentracion, psi, delta, delta2, R, coef, coef_difusion, k_cinetic
         ax[1,1].imshow(v[1])
         plot(ax, concentracion_)
 
-    return (concentracion_, psi_)
+    return (concentracion_, psi_, v, rho, c_int)
 
 def plot(ax, concentracion):
     for i in range(size(concentracion,2)):
@@ -181,6 +181,16 @@ def plot_densidad(ax, concentracion, R):
 def cuantiles(a): 
     return quantile(a, [0.0,0.01,0.25,0.5,0.75,0.99,1.0])
 
+
+def cargar_mat(archivo):
+    from scipy.io import loadmat
+    m = loadmat(archivo)
+    return m["sim"]
+
+def inicializar_con_matlab(mat):
+    concentracion = mat[:,:,0,:3]
+    psi = mat[:,:,0,5]
+    return concentracion, psi
 
 if __name__ == "__main__":
     grilla_x = 8
@@ -198,7 +208,7 @@ if __name__ == "__main__":
     concentracion_inicial = 1.0
 
     coef_difusion = array([0.1, 0.1, 0.1])
-    k_cinetico = 0.5
+    k_cinetico = 0.0
 
     r0 = 1
     R = array([r0, 5, 1, 1]) 
@@ -209,6 +219,9 @@ if __name__ == "__main__":
     # concentracion = zeros(grilla+(3,))
     # concentracion[:,:,1] = 0
     psi = ones(grilla)
+    mat = cargar_mat(r"C:\Users\augus\dev\gl\sashakile\rayleigh-taylor\sim.mat")
+    concentracion, psi = inicializar_con_matlab(mat)
+
 
     # fig, ax = plt.subplots(3,3)
 
@@ -221,5 +234,5 @@ if __name__ == "__main__":
         # plot_densidad(d, concentracion, R)
         # display(fig2)
         # display(fig)
-        concentracion, psi = avanzar(concentracion, psi, delta,delta2, R, coef, coef_difusion, k_cinetico)
+        concentracion, psi,*_ = avanzar(concentracion, psi, delta,delta2, R, coef, coef_difusion, k_cinetico)
         # plt.show()
