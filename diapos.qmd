@@ -16,39 +16,57 @@ format:
 
 # Demo de la Simulación
 
-Reimplementación de un código de MATLAB ^[x]
+---
+
+ 
+demo 8x16
+
+demo 128x256
 
 ::: aside
-[Shared Memory Semi-Implicit Solver for Hydrodynamical Instability Processes, A. Kielbowicz et.al.](https://doi.org/10.4236/ojfd.2023.131003)
+Reimplementación del código de MATLAB de [Shared Memory Semi-Implicit Solver for Hydrodynamical Instability Processes, A. Kielbowicz et.al.](https://doi.org/10.4236/ojfd.2023.131003)
 :::
 
-# ¿Por qué necesito de otro lenguaje de programación?
-
-
-
-- Enfocada en el contexto de desarollo de Código para Cómputo Numérico y Científico
-
-# Interoperabilidad con Julia
-
-## ¿Por qué `Julia Lang`?
+# ¿Por qué necesito otro lenguaje de programación?
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+::: {.callout-important}
+Enfocandonos en el contexto de desarollo de Código para Cómputo Numérico y Científico
+:::
+
+::: {.incremental}
+- Procesamiento de grandes volumenes de datos
+- Resolución iterativa de algorítmos numéricos
+:::
+
+---
+
+
+
+---
+
+# Interoperabilidad con Julia
+
+## ¿Por qué [`Julia Lang`](https://julialang.org/)?
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 > Queremos un lenguaje que sea de `codigo abierto`,
 con una licencia liberal.
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 > Queremos la velocidad de `C` con el dinamismo
 de `Ruby`.
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 > Queremos un lenguaje que sea `homoiconico`,
 
@@ -56,7 +74,7 @@ de `Ruby`.
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 > Queremos un lenguaje que sea `homoicónico`,
 <span class="fragment">con *macros* verdaderos como `Lisp`,</span>
@@ -65,7 +83,7 @@ de `Ruby`.
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 > Queremos que sea utilizable para programacion
 general como 
@@ -81,14 +99,14 @@ general como
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 >Algo que sea muy simple para aprender,
  pero que deje feliz a los *hackers* mas solemnes
 
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 >Lo queremos **interactivo**
 <span class="fragment"> y lo queremos **compilado**.</span>
@@ -96,6 +114,8 @@ general como
 ---
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+[**Why we created Julia**](https://julialang.org/blog/2012/02/why-we-created-julia/)
 
 ---
 
@@ -106,13 +126,41 @@ general como
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Gnu-octave-logo.svg/240px-Gnu-octave-logo.svg.png)
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/310px-R_logo.svg.png)
 
-## [*Why we created Julia*](https://julialang.org/blog/2012/02/why-we-created-julia/)
+## Mini demo de Julia
 
+```{.sh}
+> julia
+```
+
+::: aside
+:::{.callout-tip}
+Ver [Como instalar Julia](#cómo-instalar-julia)
+:::
+:::
 
 ## Llamar a `Julia` desde `Python`
 
+```{.sh}
+> python -m venv .venv
+> ./.venv/bin/activate
+> python -m pip install juliacall
+```
+
+---
+
+```{.python}
+from juliacall import Main as jl
+```
+
+
 
 ## Llamar a `Python` desde `Julia`
+
+```{.julia}
+using PythonCall
+
+
+```
 
 
 # Nice Features
@@ -128,10 +176,38 @@ general como
 
     # multiple dispatch
     # metaprogramming
+    # Packaging
+
+## Paquetes
+
+- Desarrollo interactivo: [Revise](https://timholy.github.io/Revise.jl/stable/), [Pluto](https://plutojl.org/)
+- Desarrollo con GPU ([JuliaGPU](https://juliagpu.org/)): CUDA
+- Ecuaciones diferenciales: [DifferentialEquations](https://docs.sciml.ai/DiffEqDocs/dev/)
+- Machine Learning Científico ([SciML](https://sciml.ai/)): [NeuralPDE](https://docs.sciml.ai/NeuralPDE/stable/)
+- Redes Neuronales: [FluxML](https://fluxml.ai/)
+- Diferenciación Automática (*AD*) ([JuliaDiff](https://juliadiff.org/)): [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl),  [Zygote](https://github.com/FluxML/Zygote.jl)
 
 # SCA314
 
 ![](https://raw.githubusercontent.com/Taller-de-Sasha/SCA314/refs/heads/main/logo/logo_sca.svg)
 
 [SCA314](https://www.youtube.com/@SCA314)
+
+# Gracias!
+
+:::{.fragment}
+Preguntas?
+:::
+
+:::{.callout-tip .fragment}
+Hay un par de diapos extras para que chusmeen
+:::
+
+# Más cosas para seguir aprendiendo
+
+## Cómo instalar Julia
+
+## Cómo trabajar con Python en Windows
+
+## Comunidades
 
