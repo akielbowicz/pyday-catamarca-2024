@@ -14,8 +14,7 @@ from simu import plt, array, ones, avanzar, iniciar_concentracion, plot_densidad
     # [dx,dy,dt]
     dx, dy, dt = 1/2, 1/2, 0.1
     delta = array([dx, dy, dt]) 
-    delta2 = (dx**2, dy**2)
-
+  
     posicion_interfaz = grilla_x // 2
 
     grilla = (grilla_x, grilla_y)
@@ -27,8 +26,6 @@ from simu import plt, array, ones, avanzar, iniciar_concentracion, plot_densidad
 
     r0 = 1
     R = array([r0, 5, 1, 1]) 
-
-    coef = 0.5*(((dx**2)*(dy**2)/(dx**2+dy**2)))
 
     concentracion = iniciar_concentracion(grilla, posicion_interfaz, concentracion_inicial)
     psi = ones(grilla)
@@ -45,5 +42,5 @@ from simu import plt, array, ones, avanzar, iniciar_concentracion, plot_densidad
             plot_densidad(d, concentracion, R)
             display(fig2)
             # display(fig)
-        concentracion, psi = avanzar(concentracion, psi, delta,delta2, R, coef, coef_difusion, k_cinetico, ax)
+        concentracion, psi = avanzar(concentracion, psi, delta, R,  coef_difusion, k_cinetico, ax)
 ```

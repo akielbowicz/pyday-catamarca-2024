@@ -1,4 +1,21 @@
-from numpy import array, ones, random, zeros, diag, zeros_like, ones_like, shape, squeeze, size, sum, meshgrid, min, max, quantile
+# simu.py computes a simulation of Rayleigh-Taylor instability though an implicit ADI scheme
+# Code adapted from a MATLAB implementation, for more details see: A. Kielbowicz et.al. https://doi.org/10.4236/ojfd.2023.131003
+# Copyright (C) 2024  Augusto Kielbowicz
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from numpy import array, ones, random, zeros, diag, zeros_like, ones_like, shape, squeeze, size, sum, min, max, quantile
 from scipy.linalg import solve
 import matplotlib.pyplot as plt
 end = None # para usar en los slice
@@ -24,10 +41,13 @@ def calcular_rho(concentracion, R):
             + R[3] * concentracion[:,:,2])
     return rho
 
-def calcular_psi(psi, rho, delta, delta2, coef):
-    _, dy, _ = delta
-    dx2, dy2 = delta2
+def calcular_psi(psi, rho, delta):
+    dx, dy, _ = delta
+    dx2, dy2  = (dx**2, dy**2)
+    coef = 0.5*(((dx**2)*(dy**2)/(dx**2+dy**2)))
+    
     f = zeros_like(rho)
+    
     f[1:-1, 1:-1] = coef * (
         (psi[0:-2, 1:-1] + psi[2:end, 1:-1])/dx2
       + (psi[1:-1, 0:-2] + psi[1:-1, 2:end])/dy2
@@ -152,9 +172,9 @@ def calcular_concentracion(concentracion, v, delta, coef_difusion, k_cinetico):
     # print(f"c: {cuantiles(c)}")
     return c
 
-def avanzar(concentracion, psi, delta, delta2, R, coef, coef_difusion, k_cinetico, ax=None):
+def avanzar(concentracion, psi, delta, R, coef_difusion, k_cinetico, ax=None):
     rho = calcular_rho(concentracion, R)
-    psi_ = calcular_psi(psi, rho, delta, delta2, coef)
+    psi_ = calcular_psi(psi, rho, delta)
     v = calcular_velocidad(psi_, delta)
 
     concentracion_ = calcular_concentracion(concentracion, v, delta, coef_difusion, k_cinetico)
@@ -187,7 +207,6 @@ if __name__ == "__main__":
 
     dx, dy, dt = 1/2, 1/2, 0.1
     delta = array([dx, dy, dt]) 
-    delta2 = (dx**2, dy**2)
 
     posicion_interfaz = grilla_x // 2
 
@@ -201,11 +220,9 @@ if __name__ == "__main__":
     r0 = 1
     R = array([r0, 5, 1, 1]) 
 
-    coef = 0.5*(((dx**2)*(dy**2)/(dx**2+dy**2)))
-
     concentracion = iniciar_concentracion(grilla, posicion_interfaz, concentracion_inicial)
-    
     psi = ones(grilla)
+
     pasos = 10
     for t in range(pasos):
-        concentracion, psi,*_ = avanzar(concentracion, psi, delta,delta2, R, coef, coef_difusion, k_cinetico)
+        concentracion, psi = avanzar(concentracion, psi, delta, R, coef_difusion, k_cinetico)
