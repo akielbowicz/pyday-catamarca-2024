@@ -1,0 +1,137 @@
+---
+title: "Interoperabilidad entre Python y Julia Lang"
+subtitle: "[saxa.xyz/charla-cata](https://saxa.xyz/charla-cata)"
+author: "@sashakile"
+format: 
+    revealjs:
+        footer: "🐍 PyDay Catamarca 2024"
+        theme: solarized
+        output-file: slides
+---
+
+![](data:image/gif;base64,R0lGODlhhACEAJEAAAAAAP///wAAAAAAACH5BAEAAAIALAAAAACEAIQAAAL/jI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8chQNf2jedIDjC2z9M9gsQgpYi87YSK3yJZg0ChxylyiQPStEmptVj9Gg88Lvc6FI8lTku7oe6Ro5d3WM6mu/VwNRZfYTch6EAYYfhn9YeBmLY1yHfnJbZYFwn5mJcZgGbw9gk2RyUKWOkZero5CdjJyQdKlIjqqkoqm2WLyToLuxtL2mrYW5ar6btGe3yrBMx7mXpMDC3ZjDvtWPr0nGyaMMzErbvcu1quvSn86lxbqP573c7uvU1+Hg3e2OSOnB8enw3P3zx06wD2IfhOoDlo0gYa7BZsm5lqzAIuTNaw20SG//gk2hu3jxpHaw4vRpS3EWNHlB8ppmMZ8OTDlnsQ3iOpsdjBmf9EBgrpkp5QmArFGa2pLKi8lzyLGvPp8xtOnTn1EU25Kk69mEC52gRJSZfWrgK3liU7duq/tEm9tj37VemXO2whor0bd6RWGT2xNczIl0U/mf0CkxhcsLBhEYgTApZh9szQuUd3plTsNutkRZWx6sQMt+ljlaOeYrvs0epbyUv9dKZZkuoGs39dG4vsN/XPvKRvdhFLVvPVylJ9txK+Ovdw026LH1eefK1u1sanw67am+7KptTBcr8uW692kqCXeWc0uTtw8tZVO28fW7X629vRsyfK2eLp/fJH1P/GPwV2nvVH4Az1Qfffd/oVKOBsB0rnGHyNGVSeJWNRlyBTxUFl4V72ELbZPqBV6J5tDoHY2n0VHQIfhgF+mFiINo0o4SwNZvaaXs+VuFxvTJlUY4qUQaigj+nx55RlMJa2E40J3RgahzrauGSRJCap4XZxmIfkRVJiGWNY4nVJJnPxnailiaNBySZ4Cxo5o5rgDNiknGqBGWGPbSK1JUV0ymRfkeMNmZ2bcEbHop7rETpalioGKpiIc8rFJVJ7ngkppVVu2OGlnsK246GV7oaol51qyuOKayJ5ZauTEonchH2m6uqd89Vpq1yhhorcoLHqVtemLfq56K8AXihsjwn/jvojq3hR+GqSt3L65oR28TbqpcsSWy2wz2LXaJCqSopteGfSJiO0ijLYYbOWmgvDldnC6+y6JcjLLabEDWsCvmOya6a/Gaw6pYro3skWbvQd+9u/oTnq4Zu9Ipgmb+EmXCp0xo77aL7e5SftC9uaSed59KowcqKieZunoP49qLKptAYnMswy6ztzuUTOKiqqPeMo8cloIltwdXF2DLSSC0f8c9OAfsaylRgbTbXJSVubY8ygVswxMiU7aK+7hRZttdIGhn2kwyiu+LUGtarrW9m8Cp0p2XQnC/fUbINd9d055603v2Y/zWe0gUdbt9OC73r43m6T27WLSJ9LZdFvn8udbsrXeq3r4pArfCjo7wk5d192d8uk2IwzGVVB8zYn+M0EU97y6w/HXubYWp9+u5C2cwBx67V7DHWuj5MubuKb/5l26LgDvDvtcDN/NOfHu4w6omJvXjqpyhc/vaGjOz7w1LZnyDW1Zm8M8sVdo29w1IPy7P74mBsf8t/tG57+55DfvJgACnCABCygAQ+IwAQqcIEMbKADHwjBCB6gAAA7)
+
+[https://saxa.xyz/charla-cata](https://saxa.xyz/charla-cata)
+
+
+# Demo de la Simulación
+
+Reimplementación de un código de MATLAB ^[x]
+
+::: aside
+[Shared Memory Semi-Implicit Solver for Hydrodynamical Instability Processes, A. Kielbowicz et.al.](https://doi.org/10.4236/ojfd.2023.131003)
+:::
+
+# ¿Por qué necesito de otro lenguaje de programación?
+
+
+
+- Enfocada en el contexto de desarollo de Código para Cómputo Numérico y Científico
+
+# Interoperabilidad con Julia
+
+## ¿Por qué `Julia Lang`?
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+> Queremos un lenguaje que sea de `codigo abierto`,
+con una licencia liberal.
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+> Queremos la velocidad de `C` con el dinamismo
+de `Ruby`.
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+> Queremos un lenguaje que sea `homoiconico`,
+
+# {background-image="https://media2.giphy.com/media/WGvwSV5qjBJuYPbzcT/giphy.gif?cid=ecf05e47fvlsllqsek3m6y4tuohs5uv5oonqc38nuztgrvl0&rid=giphy.gif&ct=g"}
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+> Queremos un lenguaje que sea `homoicónico`,
+<span class="fragment">con *macros* verdaderos como `Lisp`,</span>
+<span class="fragment">pero con la familiar notacion matemática como
+`Matlab`</span>
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+> Queremos que sea utilizable para programacion
+general como 
+<span class="fragment">`Python`,</span>
+<span class="fragment">tan facil para la estadistica como </span>
+<span class="fragment">`R`,</span>
+<span class="fragment">tan natural para procesamiento de texto como </span>
+<span class="fragment">`Perl`,</span>
+<span class="fragment">tan poderoso para *algebra lineal* como </span>
+<span class="fragment">`Matlab`,</span>
+<span class="fragment">tan bueno en unir programas como la </span>
+<span class="fragment">`shell`.</span>
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+>Algo que sea muy simple para aprender,
+ pero que deje feliz a los *hackers* mas solemnes
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+>Lo queremos **interactivo**
+<span class="fragment"> y lo queremos **compilado**.</span>
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png)
+
+---
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/267px-Matlab_Logo.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/SCIPY_2.svg/240px-SCIPY_2.svg.png)
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Mathematica_Logo.svg/230px-Mathematica_Logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Gnu-octave-logo.svg/240px-Gnu-octave-logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/310px-R_logo.svg.png)
+
+## [*Why we created Julia*](https://julialang.org/blog/2012/02/why-we-created-julia/)
+
+
+## Llamar a `Julia` desde `Python`
+
+
+## Llamar a `Python` desde `Julia`
+
+
+# Nice Features
+
+## Introspection
+
+    # benchmarking
+    # code inspection
+    # dynamic typed
+    # jit compilation
+
+## Development
+
+    # multiple dispatch
+    # metaprogramming
+
+# SCA314
+
+![](https://raw.githubusercontent.com/Taller-de-Sasha/SCA314/refs/heads/main/logo/logo_sca.svg)
+
+[SCA314](https://www.youtube.com/@SCA314)
+
