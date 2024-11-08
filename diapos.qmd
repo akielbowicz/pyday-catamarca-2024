@@ -102,7 +102,7 @@ general como
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
 >Algo que sea muy simple para aprender,
- pero que deje feliz a los *hackers* mas solemnes
+ pero que deje feliz a los *hackers* más solemnes
 
 ---
 
@@ -162,23 +162,9 @@ using PythonCall
 
 ```
 
-
-# Nice Features
-
-## Introspection
-
-    # benchmarking
-    # code inspection
-    # dynamic typed
-    # jit compilation
-
-## Development
-
-    # multiple dispatch
-    # metaprogramming
-    # Packaging
-
 ## Paquetes
+
+Para buscar paquetes pueden usar el buscador en [JuliaHub](https://juliahub.com/ui/Search?type=packages), algo similar a [pypi.org](https://pypi.org) para Python
 
 - Desarrollo interactivo: [Revise](https://timholy.github.io/Revise.jl/stable/), [Pluto](https://plutojl.org/)
 - Desarrollo con GPU ([JuliaGPU](https://juliagpu.org/)): CUDA
@@ -207,7 +193,61 @@ Hay un par de diapos extras para que chusmeen
 
 ## Cómo instalar Julia
 
-## Cómo trabajar con Python en Windows
+La forma más práctica de instalar julia es usando el programa de la línea de comandos [`juliaup`](https://github.com/JuliaLang/juliaup?tab=readme-ov-file#installation)
+
+En Linux: 
+
+```{.shell}
+> curl -fsSL https://install.julialang.org | sh
+```
+
+En Windows:
+
+Es necesario [`scoop`](https://scoop.sh):
+
+En una consola de PowerShell instalamos `scoop` con:
+
+```{.powershell}
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+Y una vez instalado, instalamos `juliaup`
+
+```{.shell}
+> scoop install main/juliaup
+```
+
+## Materiales para aprender Julia
+
+La documentación oficial [docs.julialang.org](https://docs.julialang.org/en/v1/)
+
+La página de [Nothworthy Differences with Other Languages](https://docs.julialang.org/en/v1/manual/noteworthy-differences/) que describe las diferencias con otros lenguages como Python, Matlab, R.
+
+Los [Modern Julia Workflows](https://modernjuliaworkflows.org/)
+
+Hay un curso muy bueno del MIT sobre [Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications](https://book.sciml.ai/). Está super detallado y tiene las clases en YouTube.
+
+El canal oficial de YouTube de [@TheJuliaLanguage](https://www.youtube.com/@TheJuliaLanguage) donde estan las charlas de las conferencias y meetups.
+
+# Características del lenguaje para seguir investigando
+
+## Introspección del Código
+
+- Benchmarking
+- Profiling
+- Code inspection
+
+## 
+
+- Multiple dispatch
+- Metaprogramación
+- 
 
 ## Comunidades
+
+[JuliaLang Argentina]() en Telegram
+[JupyterLatam]() en Telegram
+[Python Científico]() en Telegram
+[JuliaLang]() en Zulip
 
