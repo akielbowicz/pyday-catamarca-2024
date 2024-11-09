@@ -1,0 +1,5 @@
+juliacall
+ipython
+seaborn
+ipykernel
+line_profiler

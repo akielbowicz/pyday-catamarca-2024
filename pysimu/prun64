@@ -1,0 +1,26 @@
+         4742152 function calls (4742143 primitive calls) in 6.555 seconds
+
+   Ordered by: cumulative time
+   List reduced from 196 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      2/1    0.000    0.000    6.554    6.554 {built-in method builtins.exec}
+      2/1    0.000    0.000    6.554    6.554 <string>:1(<module>)
+        1    0.000    0.000    6.554    6.554 <ipython-input-18-a8736b50808a>:1(simulacion)
+      100    0.000    0.000    6.554    0.066 experimento.py:30(paso)
+      100    0.001    0.000    6.554    0.066 simu.py:175(avanzar)
+      100    0.001    0.000    6.540    0.065 simu.py:160(calcular_concentracion)
+    56400    3.322    0.000    4.200    0.000 _basic.py:51(solve)
+      100    0.021    0.000    3.319    0.033 simu.py:110(calcular_concentracion_x)
+    18600    0.182    0.000    3.311    0.000 simu.py:122(calcular_columna)
+      100    0.037    0.000    3.204    0.032 simu.py:79(calcular_concentracion_y)
+    37800    0.323    0.000    3.166    0.000 simu.py:92(calcular_fila)
+    56400    0.595    0.000    1.191    0.000 simu.py:153(construir_matriz_tridiagonal)
+   112800    0.157    0.000    0.602    0.000 _util.py:275(_asarray_validated)
+   169200    0.273    0.000    0.474    0.000 _twodim_base_impl.py:247(diag)
+   112800    0.173    0.000    0.383    0.000 _function_base_impl.py:589(asarray_chkfinite)
+    56401    0.050    0.000    0.271    0.000 fromnumeric.py:2349(sum)
+   169201    0.267    0.000    0.267    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+    56400    0.200    0.000    0.232    0.000 simu.py:145(construir_coef_)
+    56401    0.064    0.000    0.212    0.000 fromnumeric.py:69(_wrapreduction)
+   112800    0.042    0.000    0.195    0.000 {method 'all' of 'numpy.ndarray' objects}

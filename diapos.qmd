@@ -27,6 +27,11 @@ demo 128x256
 Reimplementación del código de MATLAB de [Shared Memory Semi-Implicit Solver for Hydrodynamical Instability Processes, A. Kielbowicz et.al.](https://doi.org/10.4236/ojfd.2023.131003)
 :::
 
+---
+
+![Duración en segundos de simulaciones de 100 pasos en grillas de distintos tamaños. Para cada tamaño de grilla se realizaron 20 simulaciones, excepto para la de tamaño 256 que se realizó una única simulación.](./pysimu/tiempos.svg)
+
+
 # ¿Por qué necesito otro lenguaje de programación?
 
 ---
@@ -42,7 +47,94 @@ Enfocandonos en el contexto de desarollo de Código para Cómputo Numérico y Ci
 
 ---
 
+Entonces surgen las preguntas
 
+::: {.incremental}
+- ¿Estoy usando el algoritmo de resolución correcto?
+- ¿Estoy usando las estructuras de datos correctas?
+- ¿Estoy manejando los recursos de la computadora de manera eficiente? (Memoria, CPU, GPU ...)
+- ¿Cómo hago para responder las preguntas anteriores?
+- ¿Tengo las herramientas adecuadas para responderlas?
+:::
+
+---
+
+```{.python}
+%%prun -s cumulative -q -l 20 -T prunX
+n_pasos = 100
+tamanio_grilla = 64 #128
+simulacion(n_pasos,tamanio_grilla)
+```
+
+::: aside
+[Profiling en IPython](https://ipython-books.github.io/42-profiling-your-code-easily-with-cprofile-and-ipython/)
+:::
+
+---
+
+### Con una grilla de tamaño 64
+
+```{.python code-line-numbers="|13"}
+         4742152 function calls (4742143 primitive calls) in 6.555 seconds
+
+   Ordered by: cumulative time
+   List reduced from 196 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      2/1    0.000    0.000    6.554    6.554 {built-in method builtins.exec}
+      2/1    0.000    0.000    6.554    6.554 <string>:1(<module>)
+        1    0.000    0.000    6.554    6.554 <ipython-input-18-a8736b50808a>:1(simulacion)
+      100    0.000    0.000    6.554    0.066 experimento.py:30(paso)
+      100    0.001    0.000    6.554    0.066 simu.py:175(avanzar)
+      100    0.001    0.000    6.540    0.065 simu.py:160(calcular_concentracion)
+    56400    3.322    0.000    4.200    0.000 _basic.py:51(solve)
+      100    0.021    0.000    3.319    0.033 simu.py:110(calcular_concentracion_x)
+    18600    0.182    0.000    3.311    0.000 simu.py:122(calcular_columna)
+      100    0.037    0.000    3.204    0.032 simu.py:79(calcular_concentracion_y)
+    37800    0.323    0.000    3.166    0.000 simu.py:92(calcular_fila)
+    56400    0.595    0.000    1.191    0.000 simu.py:153(construir_matriz_tridiagonal)
+   112800    0.157    0.000    0.602    0.000 _util.py:275(_asarray_validated)
+   169200    0.273    0.000    0.474    0.000 _twodim_base_impl.py:247(diag)
+   112800    0.173    0.000    0.383    0.000 _function_base_impl.py:589(asarray_chkfinite)
+    56401    0.050    0.000    0.271    0.000 fromnumeric.py:2349(sum)
+   169201    0.267    0.000    0.267    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+    56400    0.200    0.000    0.232    0.000 simu.py:145(construir_coef_)
+    56401    0.064    0.000    0.212    0.000 fromnumeric.py:69(_wrapreduction)
+   112800    0.042    0.000    0.195    0.000 {method 'all' of 'numpy.ndarray' objects}
+```
+
+---
+
+### Con una grilla de tamaño 128
+
+```{.python code-line-numbers="|15"}
+         9580953 function calls (9580911 primitive calls) in 47.932 seconds
+
+   Ordered by: cumulative time
+   List reduced from 232 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      2/1    0.000    0.000   47.932   47.932 {built-in method builtins.exec}
+      2/1    0.001    0.000   47.932   47.932 <string>:1(<module>)
+        1    0.011    0.011   47.931   47.931 <ipython-input-18-a8736b50808a>:1(simulacion)
+      100    0.000    0.000   47.920    0.479 experimento.py:30(paso)
+      100    0.001    0.000   47.920    0.479 simu.py:175(avanzar)
+      100    0.003    0.000   47.874    0.479 simu.py:160(calcular_concentracion)
+      100    2.158    0.022   32.653    0.327 simu.py:110(calcular_concentracion_x)
+    37800    0.561    0.000   31.360    0.001 simu.py:122(calcular_columna)
+   114000   21.674    0.000   24.122    0.000 _basic.py:51(solve)
+   114000    8.781    0.000   18.364    0.000 simu.py:153(construir_matriz_tridiagonal)
+      100    0.126    0.001   14.230    0.142 simu.py:79(calcular_concentracion_y)
+    76200    0.825    0.000   14.135    0.000 simu.py:92(calcular_fila)
+   342000    6.021    0.000    9.261    0.000 _twodim_base_impl.py:247(diag)
+   570501    3.251    0.000    3.251    0.000 {built-in method numpy.zeros}
+   228000    0.402    0.000    1.793    0.000 _util.py:275(_asarray_validated)
+   228000    0.719    0.000    1.252    0.000 _function_base_impl.py:589(asarray_chkfinite)
+       11    0.068    0.006    0.973    0.088 base_events.py:1909(_run_once)
+   342001    0.811    0.000    0.811    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+   114001    0.133    0.000    0.810    0.000 fromnumeric.py:2349(sum)
+   114001    0.162    0.000    0.655    0.000 fromnumeric.py:69(_wrapreduction)
+```
 
 ---
 
@@ -140,6 +232,8 @@ Ver [Como instalar Julia](#cómo-instalar-julia)
 
 ## Llamar a `Julia` desde `Python`
 
+Usamos el paquete [juliacall](https://juliapy.github.io/PythonCall.jl/stable/juliacall/)
+
 ```{.sh}
 > python -m venv .venv
 > ./.venv/bin/activate
@@ -152,14 +246,33 @@ Ver [Como instalar Julia](#cómo-instalar-julia)
 from juliacall import Main as jl
 ```
 
+::: {.fragment}
+```{.python}
+s = r"""
+using LinearAlgebra
 
+function solve(A, b)
+    A\b
+end
+"""
 
-## Llamar a `Python` desde `Julia`
+jl.seval(s)
+solve_julia = jl.solve
+```
+:::
 
-```{.julia}
-using PythonCall
+---
 
+```{.python}
+from scipy.linalg import solve as solve_scipy
+from numpy import array
 
+A = array([[2,0,0],
+           [0,2,-1],
+           [0,-1,2]])
+b = array([1,2,3])
+
+solve_scipy = 
 ```
 
 ## Paquetes
@@ -172,6 +285,7 @@ Para buscar paquetes pueden usar el buscador en [JuliaHub](https://juliahub.com/
 - Machine Learning Científico ([SciML](https://sciml.ai/)): [NeuralPDE](https://docs.sciml.ai/NeuralPDE/stable/)
 - Redes Neuronales: [FluxML](https://fluxml.ai/)
 - Diferenciación Automática (*AD*) ([JuliaDiff](https://juliadiff.org/)): [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl),  [Zygote](https://github.com/FluxML/Zygote.jl)
+- Procesamiento de Datos Estructurados: [DataFrames](https://dataframes.juliadata.org/stable/),[Makie](https://docs.makie.org/stable/)
 
 # SCA314
 
@@ -201,6 +315,8 @@ En Linux:
 > curl -fsSL https://install.julialang.org | sh
 ```
 
+---
+
 En Windows:
 
 Es necesario [`scoop`](https://scoop.sh):
@@ -217,6 +333,10 @@ Y una vez instalado, instalamos `juliaup`
 ```{.shell}
 > scoop install main/juliaup
 ```
+
+---
+
+Y para empezar a desarrollar, lo más práctico es usar [VSCode con la extensión de Julia](https://www.julia-vscode.org/)
 
 ## Materiales para aprender Julia
 
@@ -242,12 +362,12 @@ El canal oficial de YouTube de [@TheJuliaLanguage](https://www.youtube.com/@TheJ
 
 - Multiple dispatch
 - Metaprogramación
-- 
+- Packaging y creación de Ambientes
 
 ## Comunidades
 
-[JuliaLang Argentina]() en Telegram
-[JupyterLatam]() en Telegram
-[Python Científico]() en Telegram
-[JuliaLang]() en Zulip
+- [JuliaLang Argentina]() en Telegram
+- [JupyterLatam]() en Telegram
+- [Python Científico]() en Telegram
+- [JuliaLang]() en Zulip
 

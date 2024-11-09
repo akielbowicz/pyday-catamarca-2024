@@ -16,9 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from numpy import array, ones, random, zeros, diag, zeros_like, ones_like, shape, squeeze, size, sum, min, max, quantile
-from scipy.linalg import solve
+# from scipy.linalg import solve
+from interop import solve_julia as solve
 import matplotlib.pyplot as plt
 end = None # para usar en los slice
+
+
 
 def iniciar_concentracion(grilla, posicion_interfaz, concentracion_inicial):
     concentracion = zeros(grilla+(3,))
@@ -200,6 +203,7 @@ def plot_densidad(ax, concentracion, R):
 
 def cuantiles(a): 
     return quantile(a, [0.0,0.01,0.25,0.5,0.75,0.99,1.0])
+
 
 if __name__ == "__main__":
     grilla_x = 8

@@ -1,0 +1,15 @@
+```{python}
+from experimento import experimento
+
+def simulacion(n, tam=64):
+    paso, ci, pi = experimento(tam)
+    c,psi = ci,pi
+    for _ in range(n):
+        c,psi = paso(c,psi)
+    return c, psi
+```
+
+```{python}
+%%prun -s cumulative -q -l 20 -T pruna128
+simulacion(100,128)
+```

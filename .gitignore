@@ -23,3 +23,5 @@ docs/site/
 # environment.
 Manifest.toml
 .venv
+pysimu/__pycache__
+simu.jl/.CondaPkg
