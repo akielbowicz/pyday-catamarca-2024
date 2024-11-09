@@ -179,17 +179,17 @@ de `Ruby`.
 
 > Queremos un lenguaje que sea `homoicónico`,
 <span class="fragment">con *macros* verdaderos como `Lisp`,</span>
-<span class="fragment">pero con la familiar notacion matemática como
+<span class="fragment">pero con la familiar notación matemática como
 `Matlab`</span>
 
 ---
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/320px-Julia_Programming_Language_Logo.svg.png){fig-align="center"}
 
-> Queremos que sea utilizable para programacion
+> Queremos que sea utilizable para programación
 general como 
 <span class="fragment">`Python`,</span>
-<span class="fragment">tan facil para la estadistica como </span>
+<span class="fragment">tan facil para la estadística como </span>
 <span class="fragment">`R`,</span>
 <span class="fragment">tan natural para procesamiento de texto como </span>
 <span class="fragment">`Perl`,</span>
@@ -285,18 +285,6 @@ solucion_scipy = solve_scipy(A,b)
 solucion_julia = solve_julia(A,b)
 ```
 
-## Paquetes
-
-Para buscar paquetes pueden usar el buscador en [JuliaHub](https://juliahub.com/ui/Search?type=packages), algo similar a [pypi.org](https://pypi.org) para Python
-
-- Desarrollo interactivo: [Revise](https://timholy.github.io/Revise.jl/stable/), [Pluto](https://plutojl.org/)
-- Desarrollo con GPU ([JuliaGPU](https://juliagpu.org/)): CUDA
-- Ecuaciones diferenciales: [DifferentialEquations](https://docs.sciml.ai/DiffEqDocs/dev/)
-- Machine Learning Científico ([SciML](https://sciml.ai/)): [NeuralPDE](https://docs.sciml.ai/NeuralPDE/stable/)
-- Redes Neuronales: [FluxML](https://fluxml.ai/)
-- Diferenciación Automática (*AD*) ([JuliaDiff](https://juliadiff.org/)): [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl),  [Zygote](https://github.com/FluxML/Zygote.jl)
-- Procesamiento de Datos Estructurados: [DataFrames](https://dataframes.juliadata.org/stable/),[Makie](https://docs.makie.org/stable/)
-
 # SCA314
 
 ![](https://raw.githubusercontent.com/Taller-de-Sasha/SCA314/refs/heads/main/logo/logo_sca.svg)
@@ -377,6 +365,19 @@ El canal oficial de YouTube de [@TheJuliaLanguage](https://www.youtube.com/@TheJ
 - Multiple dispatch
 - Metaprogramación
 - Packaging y creación de Ambientes
+
+## Paquetes
+
+Para buscar paquetes pueden usar el buscador en [JuliaHub](https://juliahub.com/ui/Search?type=packages), algo similar a [pypi.org](https://pypi.org) para Python
+
+- Desarrollo interactivo: [Revise](https://timholy.github.io/Revise.jl/stable/), [Pluto](https://plutojl.org/)
+- Desarrollo con GPU ([JuliaGPU](https://juliagpu.org/)): CUDA
+- Ecuaciones diferenciales: [DifferentialEquations](https://docs.sciml.ai/DiffEqDocs/dev/)
+- Machine Learning Científico ([SciML](https://sciml.ai/)): [NeuralPDE](https://docs.sciml.ai/NeuralPDE/stable/)
+- Redes Neuronales: [FluxML](https://fluxml.ai/)
+- Diferenciación Automática (*AD*) ([JuliaDiff](https://juliadiff.org/)): [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl),  [Zygote](https://github.com/FluxML/Zygote.jl)
+- Procesamiento de Datos Estructurados: [DataFrames](https://dataframes.juliadata.org/stable/),[Makie](https://docs.makie.org/stable/)
+
 
 ## Comunidades
 
