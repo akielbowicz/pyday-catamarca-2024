@@ -17,10 +17,10 @@
 
 from numpy import array, ones, random, zeros, diag, zeros_like, ones_like, shape, squeeze, size, sum, min, max, quantile
 # from scipy.linalg import solve
+
 from interop import solve_julia as solve
 import matplotlib.pyplot as plt
 end = None # para usar en los slice
-
 
 
 def iniciar_concentracion(grilla, posicion_interfaz, concentracion_inicial):

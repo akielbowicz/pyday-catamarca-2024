@@ -7,6 +7,7 @@ format:
         footer: "🐍 PyDay Catamarca 2024"
         theme: solarized
         output-file: slides
+
 ---
 
 ![](data:image/gif;base64,R0lGODlhhACEAJEAAAAAAP///wAAAAAAACH5BAEAAAIALAAAAACEAIQAAAL/jI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8chQNf2jedIDjC2z9M9gsQgpYi87YSK3yJZg0ChxylyiQPStEmptVj9Gg88Lvc6FI8lTku7oe6Ro5d3WM6mu/VwNRZfYTch6EAYYfhn9YeBmLY1yHfnJbZYFwn5mJcZgGbw9gk2RyUKWOkZero5CdjJyQdKlIjqqkoqm2WLyToLuxtL2mrYW5ar6btGe3yrBMx7mXpMDC3ZjDvtWPr0nGyaMMzErbvcu1quvSn86lxbqP573c7uvU1+Hg3e2OSOnB8enw3P3zx06wD2IfhOoDlo0gYa7BZsm5lqzAIuTNaw20SG//gk2hu3jxpHaw4vRpS3EWNHlB8ppmMZ8OTDlnsQ3iOpsdjBmf9EBgrpkp5QmArFGa2pLKi8lzyLGvPp8xtOnTn1EU25Kk69mEC52gRJSZfWrgK3liU7duq/tEm9tj37VemXO2whor0bd6RWGT2xNczIl0U/mf0CkxhcsLBhEYgTApZh9szQuUd3plTsNutkRZWx6sQMt+ljlaOeYrvs0epbyUv9dKZZkuoGs39dG4vsN/XPvKRvdhFLVvPVylJ9txK+Ovdw026LH1eefK1u1sanw67am+7KptTBcr8uW692kqCXeWc0uTtw8tZVO28fW7X629vRsyfK2eLp/fJH1P/GPwV2nvVH4Az1Qfffd/oVKOBsB0rnGHyNGVSeJWNRlyBTxUFl4V72ELbZPqBV6J5tDoHY2n0VHQIfhgF+mFiINo0o4SwNZvaaXs+VuFxvTJlUY4qUQaigj+nx55RlMJa2E40J3RgahzrauGSRJCap4XZxmIfkRVJiGWNY4nVJJnPxnailiaNBySZ4Cxo5o5rgDNiknGqBGWGPbSK1JUV0ymRfkeMNmZ2bcEbHop7rETpalioGKpiIc8rFJVJ7ngkppVVu2OGlnsK246GV7oaol51qyuOKayJ5ZauTEonchH2m6uqd89Vpq1yhhorcoLHqVtemLfq56K8AXihsjwn/jvojq3hR+GqSt3L65oR28TbqpcsSWy2wz2LXaJCqSopteGfSJiO0ijLYYbOWmgvDldnC6+y6JcjLLabEDWsCvmOya6a/Gaw6pYro3skWbvQd+9u/oTnq4Zu9Ipgmb+EmXCp0xo77aL7e5SftC9uaSed59KowcqKieZunoP49qLKptAYnMswy6ztzuUTOKiqqPeMo8cloIltwdXF2DLSSC0f8c9OAfsaylRgbTbXJSVubY8ygVswxMiU7aK+7hRZttdIGhn2kwyiu+LUGtarrW9m8Cp0p2XQnC/fUbINd9d055603v2Y/zWe0gUdbt9OC73r43m6T27WLSJ9LZdFvn8udbsrXeq3r4pArfCjo7wk5d192d8uk2IwzGVVB8zYn+M0EU97y6w/HXubYWp9+u5C2cwBx67V7DHWuj5MubuKb/5l26LgDvDvtcDN/NOfHu4w6omJvXjqpyhc/vaGjOz7w1LZnyDW1Zm8M8sVdo29w1IPy7P74mBsf8t/tG57+55DfvJgACnCABCygAQ+IwAQqcIEMbKADHwjBCB6gAAA7)
@@ -18,10 +19,8 @@ format:
 
 ---
 
- 
-demo 8x16
+![](./imagenes/simu16.gif)
 
-demo 128x256
 
 ::: aside
 Reimplementación del código de MATLAB de [Shared Memory Semi-Implicit Solver for Hydrodynamical Instability Processes, A. Kielbowicz et.al.](https://doi.org/10.4236/ojfd.2023.131003)
@@ -29,7 +28,17 @@ Reimplementación del código de MATLAB de [Shared Memory Semi-Implicit Solver f
 
 ---
 
-![Duración en segundos de simulaciones de 100 pasos en grillas de distintos tamaños. Para cada tamaño de grilla se realizaron 20 simulaciones, excepto para la de tamaño 256 que se realizó una única simulación.](./pysimu/tiempos.svg)
+![](./imagenes/simu128.gif) 
+
+---
+
+![Duración en segundos de simulaciones de 100 pasos en grillas de distintos tamaños. Para cada tamaño de grilla se realizaron 20 simulaciones, excepto para la de tamaño 256 que se realizó una única simulación.](./imagenes/tiempos.svg)
+
+---
+
+### Utilizando un solver de sistemas lineales de Julia
+
+![Duración en segundos de simulaciones de 100 pasos en grillas de distintos tamaños. Para cada tamaño de grilla se realizaron 20 simulaciones, excepto para la de tamaño 256 que se realizó una única simulación.](./imagenes/tiempos_julia.svg)
 
 
 # ¿Por qué necesito otro lenguaje de programación?
@@ -272,7 +281,8 @@ A = array([[2,0,0],
            [0,-1,2]])
 b = array([1,2,3])
 
-solve_scipy = 
+solucion_scipy = solve_scipy(A,b)
+solucion_julia = solve_julia(A,b)
 ```
 
 ## Paquetes
@@ -297,6 +307,10 @@ Para buscar paquetes pueden usar el buscador en [JuliaHub](https://juliahub.com/
 
 :::{.fragment}
 Preguntas?
+:::
+
+::: {.fragment}
+Los materiales de esta charla lo pueden encontrar en [https://github.com/akielbowicz/pyday-catamarca-2024](https://github.com/akielbowicz/pyday-catamarca-2024)
 :::
 
 :::{.callout-tip .fragment}
@@ -358,7 +372,7 @@ El canal oficial de YouTube de [@TheJuliaLanguage](https://www.youtube.com/@TheJ
 - Profiling
 - Code inspection
 
-## 
+## Features de Desarrollo
 
 - Multiple dispatch
 - Metaprogramación
@@ -366,8 +380,10 @@ El canal oficial de YouTube de [@TheJuliaLanguage](https://www.youtube.com/@TheJ
 
 ## Comunidades
 
-- [JuliaLang Argentina]() en Telegram
-- [JupyterLatam]() en Telegram
-- [Python Científico]() en Telegram
-- [JuliaLang]() en Zulip
+- [JuliaLang Argentina](https://t.me/julialangarg) en Telegram
+- [JuliaLang](https://julialang.zulipchat.com/) en Zulip
+- [JupyterLatam](https://t.me/jupyter_latam) en Telegram
+- [SciPy Argentina](https://t.me/scipyargentina) en Telegram
+- [Python Norte](https://t.me/pythonnorte) en Telegram
+- [Python Argentina](https://t.me/pythonargentina) en Telegram
 
